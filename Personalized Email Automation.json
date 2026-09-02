@@ -1,0 +1,276 @@
+{
+  "name": "Personalized Email Automation",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a80e59ba-b6b5-4c18-9048-4365d28d2425",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1hJMElJkgqgEyfk4HtZFAhDovOWsLSQgoLpZfdrKPfnM",
+          "mode": "list",
+          "cachedResultName": "User Information",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hJMElJkgqgEyfk4HtZFAhDovOWsLSQgoLpZfdrKPfnM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hJMElJkgqgEyfk4HtZFAhDovOWsLSQgoLpZfdrKPfnM/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        0
+      ],
+      "id": "2c4d3818-9888-4722-98d0-f799d3585d76",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "drq2G2DpgrxoVZrN",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        448,
+        0
+      ],
+      "id": "86e0e448-2ae1-4d0f-bce1-087f810cc780",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "sendTo": "mdsakib786ansari@gmail.com",
+        "subject": "=Welcome to AI Automation, {{ $('Get row(s) in sheet').item.json['First Name'] }}! 🤖",
+        "message": "=<div style=\"margin:0; padding:0; background-color:#f4f7fb; font-family:Arial, Helvetica, sans-serif;\">\n  <div style=\"max-width:600px; margin:30px auto; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.08);\">\n\n    <!-- Header -->\n    <div style=\"background:#4f46e5; padding:30px 25px; text-align:center;\">\n      <h1 style=\"margin:0; color:#ffffff; font-size:28px;\">\n        Welcome to AI Automation 🤖\n      </h1>\n      <p style=\"margin:8px 0 0; color:#e0e7ff; font-size:15px;\">\n        We're happy to have you with us!\n      </p>\n    </div>\n\n    <!-- Content -->\n    <div style=\"padding:35px 30px; color:#333333;\">\n\n      <h2 style=\"margin-top:0; font-size:22px;\">\n        Hello {{ $('Get row(s) in sheet').item.json['First Name'] }} 👋\n      </h2>\n\n      <p style=\"font-size:16px; line-height:1.7;\">\n        Thank you for submitting the form. Your information has been\n        successfully received.\n      </p>\n\n      <div style=\"background:#f8f9ff; border-left:4px solid #4f46e5; padding:15px 18px; margin:25px 0;\">\n        <p style=\"margin:0; font-size:15px; line-height:1.6;\">\n          <strong>First Name:</strong>\n          {{ $('Get row(s) in sheet').item.json['First Name'] }}<br>\n\n          <strong>Email:</strong>\n          {{ $('Get row(s) in sheet').item.json.Email }}\n        </p>\n      </div>\n\n      <p style=\"font-size:16px; line-height:1.7;\">\n        We're excited to have you on board. You can expect more updates\n        and information from us soon.\n      </p>\n\n      <!-- Button -->\n      <div style=\"text-align:center; margin:30px 0;\">\n        <a href=\"#\"\n           style=\"display:inline-block; background:#4f46e5; color:#ffffff; text-decoration:none; padding:13px 28px; border-radius:7px; font-size:15px; font-weight:bold;\">\n          Get Started\n        </a>\n      </div>\n\n      <p style=\"font-size:15px; line-height:1.6; margin-bottom:0;\">\n        Best regards,<br>\n        <strong>AI Automation Team</strong>\n      </p>\n\n    </div>\n\n    <!-- Footer -->\n    <div style=\"background:#f8fafc; padding:20px; text-align:center; border-top:1px solid #eeeeee;\">\n      <p style=\"margin:0; color:#777777; font-size:12px;\">\n        © 2026 AI Automation. All rights reserved.\n      </p>\n      <p style=\"margin:7px 0 0; color:#999999; font-size:11px;\">\n        This is an automated email. Please do not reply directly to this message.\n      </p>\n    </div>\n\n  </div>\n</div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        704,
+        16
+      ],
+      "id": "f3544e0d-e117-4430-b2e2-6830f42206df",
+      "name": "Send a message",
+      "webhookId": "af9c0862-f890-40d0-b168-4b64ab69ec93",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "wlYGuHfMWFEC3ivZ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1hJMElJkgqgEyfk4HtZFAhDovOWsLSQgoLpZfdrKPfnM",
+          "mode": "list",
+          "cachedResultName": "User Information",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hJMElJkgqgEyfk4HtZFAhDovOWsLSQgoLpZfdrKPfnM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hJMElJkgqgEyfk4HtZFAhDovOWsLSQgoLpZfdrKPfnM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Submitted At": "={{ $('Get row(s) in sheet').item.json['Submitted At'] }}",
+            "Email": "Success"
+          },
+          "matchingColumns": [
+            "Submitted At"
+          ],
+          "schema": [
+            {
+              "id": "First Name",
+              "displayName": "First Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Last Name",
+              "displayName": "Last Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Submitted At",
+              "displayName": "Submitted At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Form Mode",
+              "displayName": "Form Mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "SubmitAt",
+              "displayName": "SubmitAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        928,
+        16
+      ],
+      "id": "06db89f5-0237-4eb4-aa1d-69d9f7aeb49f",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "drq2G2DpgrxoVZrN",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "fac4c1d6-882b-476a-9936-b9ff7b63980c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13e5af8019b4dafb711f7a22e9e1f8d049fbb55b9faf8788ee03ac6d03c74fcf"
+  },
+  "nodeGroups": [],
+  "id": "I0EfDuONR4ISYKHI",
+  "tags": []
+}
